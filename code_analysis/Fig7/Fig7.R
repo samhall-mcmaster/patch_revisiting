@@ -4,8 +4,8 @@ require(beeswarm)
 require(RColorBrewer)
 
 ###### set up relevant paths ------,
-# To run this file, open Fig7.Rproj, then open Fig7.R 
-Dir <- here::here()
+# To run this file, open Fig7.Rproj, then open Fig7.R
+Dir = getwd()
 resultDir <- "results"
 trialwisemodeldatDir <- "trialwise_data"
 statsDir <- "stats"
@@ -25,7 +25,7 @@ ccols = cbind(c(rgb(0.6196, 0.0039, 0.2588), rgb(0.1974, 0.5129, 0.7403)), c(rgb
 # FREE CHOICES (forced see below)
 ################
 
-# define models and timepoints 
+# define models and timepoints
 models = c('global_free', 'localRRs_free')
 nmodels = length(models)
 timepts = c(-4:0, 2)
