@@ -24,8 +24,7 @@ addpath(toolpath);
 % create vectors to store data
 points_earned=[];
 
-% define participants to analyse. Exclude participants rejected during
-% preprocessing
+% define participant list
 sublist=[1:70];
 nsubs=length(sublist);
 
@@ -48,7 +47,16 @@ stats.points.median=median(points_earned);
 stats.rejected.subID=sublist(isoutlier(points_earned));
 stats.rejected.points=points_earned(isoutlier(points_earned));
 
-% set analysis name for saving
+% create a histogram showing points_earned
+% this can be used to check whether outliers identified are distinct from the main distribution 
+figure
+histogram(points_earned);
+xlabel('Total Points Earned');
+ylabel('Number of Partcipants');
+set(gca,'FontSize',16);
+box off
+
+% set analysis name for stats saving
 analysisname='rejectedSubs';
 
 % save stats?
@@ -58,4 +66,16 @@ if save_stats
     statfname  = sprintf('%s/%s_stats',statfolder,analysisname);
     statfname  = sprintf('%s_%s',statfname,datestr(now,'yyyymmdd-HHMM'));
     save([statfname '.mat'],'stats');
+end
+
+% set analysis name for histogram saving
+analysisname='pointsEarned';
+
+% save figure?
+save_figure=1;
+if save_figure
+   figfolder = [savepath '/figures']; if ~exist(figfolder,'dir'); mkdir(figfolder); end
+   fname = sprintf('%s/%s_histogram',figfolder,analysisname);
+   fname  = sprintf('%s_%s',fname,datestr(now,'yyyymmdd-HHMM'));
+   print(gcf,'-dpng',fname);
 end
